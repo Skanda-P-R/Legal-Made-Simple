@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Made Simple | Case Extractor and Prompt Submission</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+   <div class="project-title">Legal Made Simple</div>
+    <div class="container">
+        <!-- Left Box for Sample Case and Roxie Case Statements -->
+        <div class="box">
+            <label for="sampleCase">Enter Sample Case</label>
+            <input type="text" id="sampleCase" placeholder="Enter Sample Case">
+            <button id="extractButton">Extract Relevant Named Entities</button>
+            
+            <br><br>
+            <label for="caseStatements">Extracted Named Entities</label>
+            <div id="caseStatementsContainer"></div>
+
+            <br><br>
+            <label for="roxieCases">Relevent Case Statements</label>
+            <table id="roxieCaseStatementsTable">
+                <!-- Rows will be added dynamically here -->
+            </table>
+        </div>
+
+        <!-- Right Box for User Prompt -->
+        <div class="box">
+            <label for="userPrompt">Enter User Prompt</label>
+            <input type="text" id="userPrompt" placeholder="Enter User Prompt">
+            <button id="submitPromptButton">Submit Prompt</button>
+            <br><br>
+            <label for="backendResponse">Response</label>
+            <textarea id="backendResponse" class="output-box" placeholder="Backend response will appear here..." readonly></textarea>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
