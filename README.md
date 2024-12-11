@@ -46,4 +46,4 @@ An example is shown in the below image:<br><br>![image](https://github.com/user-
 * OpenNYAI for creating the ```en_legal_ner_trf``` legal [NER model](https://huggingface.co/opennyaiorg/en_legal_ner_trf).
 * [Groq Cloud](https://groq.com/) for the Llama model.
 
-### PS, if you want to learn how the Application works, please read the "AppWorking.md" file. If you want to read how the case statements are fetched from HPCC System, please click on the "Searching Techniques used in HPCC Systems" folder.
+### PS, if you want to learn how the Application works, please read the "AppWorking.md" file. If you want to read how the case statements are fetched from HPCC System, please click on the "Searching Techniques used in HPCC" folder.
