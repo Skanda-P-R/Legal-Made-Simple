@@ -7,7 +7,7 @@ The problem with this model is that, the entire dataset has to be sequencially s
 ## Steps for running it on a cluster
 
 1. Install the dataset from the link provided in this github repository. You can find the link in the ```RelaventLinks.txt``` file.
-2. Clone this repository. Type this in your terminal: ```git clone https://github.com/ManvithLB/Legal-Assistance-HPCC.git```
+2. Clone this repository. Type this in your terminal: ```git clone https://github.com/Skanda-P-R/Legal-Made-Simple.git```
 3. Open ECL watch, and upload the case statement dataset with the text_id, and the extracted keywords dataset on the Landing Zone.
 4. Spray both the files using delimited spray, and name the file ``` legal::ildc_multi_text_id``` and ```legal::ildc_multi_words``` respectively.
 5. Now create a csv file with the following contents: ```Section 18,Civil Appeal,West Bengal,Central Commission,Article 16  4  and 16  4-A,Section 3 7  ,Schedule B,IPC,Section 34,Arms Act,Domicile```. These are also uploaded and sprayed to the cluster under the name ```legal::test_words```. These are used as test words.
