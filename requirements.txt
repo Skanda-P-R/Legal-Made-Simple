@@ -3,4 +3,3 @@ requests
 Flask
 Jinja2
 werkzeug
-./en_legal_ner_trf-3.2.0-py3-none-any.whl
