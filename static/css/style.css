@@ -29,6 +29,8 @@ body {
     flex-wrap: wrap; /* Allows for two columns */
     gap: 20px; /* Space between left and right boxes */
     box-sizing: border-box;
+    max-height: 100vh;
+    overflow-y: auto;
 }
 
 .box {
