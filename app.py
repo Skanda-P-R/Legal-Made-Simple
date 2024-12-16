@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify, send_from_directory, render_template
 from legal_ner_script import process_entities
-from send_to_roxie import send_to_api, extract_text_from_response
 from send_to_groq import send_to_groq
 import mysql.connector
 
@@ -15,7 +14,6 @@ cursor = mydb.cursor()
 
 app = Flask(__name__)
 
-ROXIE_API_URL = "http://university-roxie.us-hpccsystems-dev.azure.lnrsg.io:8002/WsEcl/json/query/roxie/roxie_index_search_2"
 GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 @app.route('/')
