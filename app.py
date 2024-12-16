@@ -31,16 +31,16 @@ def extract_case_statements():
 
         extracted_string = process_entities(input_text)
 
-        cursor.execute(f"delete from test_words")
-        cursor.execute(f"delete from relevant_text_id")
+        cursor.execute(f"DELETE FROM test_words")
+        cursor.execute(f"DELETE FROM relevant_text_id")
 
         extracted_list = extracted_string.split("/")
         
         for i in extracted_list:
-            cursor.execute(f"insert into test_words values ('{i}')")
+            cursor.execute(f"INSERT INTO test_words VALUES ('{i}')")
 
-        cursor.execute(f"insert into relevant_text_id select legal_words.text_id, count(legal_words.words) as words_count from legal_words inner join test_words on legal_words.words = test_words.words group by legal_words.text_id order by words_count DESC limit 10")
-        cursor.execute(f"select cases.text from cases inner join relevant_text_id on relevant_text_id.text_id = cases.text_id")
+        cursor.execute(f"INSERT INTO relevant_text_id SELECT legal_words.text_id, COUNT(legal_words.words) AS words_count FROM legal_words INNER JOIN test_words ON legal_words.words = test_words.words GROUP BY legal_words.text_id ORDER BY words_count DESC LIMIT 10")
+        cursor.execute(f"SELECT cases.text FROM cases INNER JOIN relevant_text_id ON relevant_text_id.text_id = cases.text_id")
         text = cursor.fetchall()
         count = 1
         texts = []
@@ -69,16 +69,16 @@ def submit_prompt():
 
         ner_output = process_entities(input_text)
 
-        cursor.execute(f"delete from test_words")
-        cursor.execute(f"delete from relevant_text_id")
+        cursor.execute(f"DELETE FROM test_words")
+        cursor.execute(f"DELETE FROM relevant_text_id")
 
         extracted_list = ner_output.split("/")
         
         for i in extracted_list:
-            cursor.execute(f"insert into test_words values ('{i}')")
+            cursor.execute(f"INSERT INTO test_words VALUES ('{i}')")
 
-        cursor.execute(f"insert into relevant_text_id select legal_words.text_id, count(legal_words.words) as words_count from legal_words inner join test_words on legal_words.words = test_words.words group by legal_words.text_id order by words_count DESC limit 10")
-        cursor.execute(f"select cases.text from cases inner join relevant_text_id on relevant_text_id.text_id = cases.text_id")
+        cursor.execute(f"INSERT INTO relevant_text_id SELECT legal_words.text_id, COUNT(legal_words.words) AS words_count FROM legal_words INNER JOIN test_words ON legal_words.words = test_words.words GROUP BY legal_words.text_id ORDER BY words_count DESC LIMIT 10")
+        cursor.execute(f"SELECT cases.text FROM cases INNER JOIN relevant_text_id ON relevant_text_id.text_id = cases.text_id")
         text = cursor.fetchall()
         count = 1
         texts = []
