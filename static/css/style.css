@@ -1,5 +1,5 @@
 body {
-    background-color: #f0f8ff; /* Light blue background */
+    background-color: #f0f8ff;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -7,14 +7,14 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    flex-direction: column; /* Stack sections vertically */
+    flex-direction: column;
 }
 
 .project-title {
             text-align: center;
             font-size: 1.8em;
             font-weight: bold;
-            color: #1E4F75; /* Dark blue text */
+            color: #1E4F75;
             margin-bottom: 30px;
         }
 
@@ -26,15 +26,15 @@ body {
     width: 90%;
     max-width: 1200px;
     display: flex;
-    flex-wrap: wrap; /* Allows for two columns */
-    gap: 20px; /* Space between left and right boxes */
+    flex-wrap: wrap;
+    gap: 20px;
     box-sizing: border-box;
     max-height: 100vh;
     overflow-y: auto;
 }
 
 .box {
-    width: 48%; /* Each box will take up half the container width */
+    width: 48%; 
     background: #ffffff;
     padding: 20px;
     border-radius: 10px;
@@ -46,7 +46,7 @@ input[type="text"], textarea {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
-    border: 2px solid #87CEFA; /* Light blue border */
+    border: 2px solid #87CEFA; 
     border-radius: 20px;
     box-sizing: border-box;
     font-size: 16px;
@@ -54,11 +54,11 @@ input[type="text"], textarea {
 }
 
 input[type="text"]:focus, textarea:focus {
-    border-color: #4682B4; /* Slightly darker blue when focused */
+    border-color: #4682B4; 
 }
 
 button {
-    background-color: #4682B4; /* Dark blue */
+    background-color: #4682B4;
     color: white;
     border: 2px solid #ffffff;
     border-radius: 20px;
@@ -69,7 +69,7 @@ button {
 }
 
 button:hover {
-    background-color: #1E4F75; /* Slightly darker blue */
+    background-color: #1E4F75;
 }
 
 label {
@@ -85,37 +85,37 @@ label {
 }
 
 .tag {
-    background-color: #87CEFA; /* Light blue background */
-    color: #333; /* Dark text color */
+    background-color: #87CEFA; 
+    color: #333; 
     border-radius: 20px;
     padding: 6px 12px;
     font-size: 14px;
     display: inline-block;
     margin: 4px 0;
-    white-space: normal; /* Allows the text to wrap */
-    word-break: break-word; /* Break long words */
-    max-width: 100%; /* Prevents the tag from exceeding the container width */
-    box-sizing: border-box; /* Include padding in width calculation */
+    white-space: normal;
+    word-break: break-word; 
+    max-width: 100%;
+    box-sizing: border-box; 
 }
 
 #caseStatementsContainer {
     display: flex;
-    flex-wrap: wrap; /* Ensures tags wrap within the container */
-    gap: 8px; /* Space between tags */
+    flex-wrap: wrap; 
+    gap: 8px;
     padding: 10px;
     background: #f9f9f9;
     border-radius: 10px;
     min-height: 100px;
     box-sizing: border-box;
-    overflow: hidden; /* Prevents content from overflowing outside */
+    overflow: hidden;
 }
 
 @media (max-width: 600px) {
     .box {
-        width: 100%; /* Full width for small screens */
+        width: 100%; 
     }
     .tag {
-        font-size: 12px; /* Adjust font size for smaller screens */
-        padding: 4px 8px; /* Reduce padding */
+        font-size: 12px; 
+        padding: 4px 8px; 
     }
 }

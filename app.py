@@ -33,10 +33,8 @@ def extract_case_statements():
 
         extracted_string = process_entities(input_text)
 
-        # case_statements = ''
-        # while not case_statements:
-        #     roxie_response = send_to_api(extracted_string, ROXIE_API_URL)
-        #     case_statements = extract_text_from_response(roxie_response)
+        cursor.execute(f"delete from test_words")
+        cursor.execute(f"delete from relevant_text_id")
 
         extracted_list = extracted_string.split("/")
         
@@ -49,7 +47,7 @@ def extract_case_statements():
         count = 1
         texts = []
         for i in text:
-            texts.append(f"({count}) {i}\n")
+            texts.append(f"({count}) {i[0][:5000]}\n")
             count+=1
         
         case_statements = " ".join(texts)
@@ -73,13 +71,26 @@ def submit_prompt():
 
         ner_output = process_entities(input_text)
 
-        combined_texts = ''
+        cursor.execute(f"delete from test_words")
+        cursor.execute(f"delete from relevant_text_id")
 
-        while not combined_texts:
-            response = send_to_api(ner_output, ROXIE_API_URL)
-            combined_texts = extract_text_from_response(response)
+        extracted_list = ner_output.split("/")
+        
+        for i in extracted_list:
+            cursor.execute(f"insert into test_words values ('{i}')")
 
-        groq_response = send_to_groq(combined_texts, user_prompt, GROQ_API_URL)
+        cursor.execute(f"insert into relevant_text_id select legal_words.text_id, count(legal_words.words) as words_count from legal_words inner join test_words on legal_words.words = test_words.words group by legal_words.text_id order by words_count DESC limit 10")
+        cursor.execute(f"select cases.text from cases inner join relevant_text_id on relevant_text_id.text_id = cases.text_id")
+        text = cursor.fetchall()
+        count = 1
+        texts = []
+        for i in text:
+            texts.append(f"({count}) {i[0][:1000]}\n")
+            count+=1
+        
+        case_statements = " ".join(texts)
+
+        groq_response = send_to_groq(case_statements, user_prompt, GROQ_API_URL)
 
         return jsonify({"response": groq_response})
     except Exception as e:
