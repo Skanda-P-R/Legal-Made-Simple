@@ -25,8 +25,8 @@ The application consists of two main workflows:
    - Entities of type `PROVISION` and `STATUTE` are combined into a single label, `PROVISION_STATUTE`.
    - The extracted entities are returned as a string.
 
-### Step 3: Query Roxie API
-- The extracted entities are sent to the **HPCC Systems' Roxie API** using `send_to_roxie.py`.
+### Step 3: Query Roxie API / SQL Server
+- The extracted entities are sent to the **HPCC Systems' Roxie API** using `send_to_roxie.py`. In the later version, we have shifted to SQL a Server, which does the same functionality.
 - **Process Details**:
    - The API query is based on the NER-extracted entity information.
    - The Roxie API responds with relevant legal case statements, by doing efficient searching and ranking of the case statements from the data corpus. The **Searching** process is discussed in the **Searching Techinques used in HPCC** folder.
