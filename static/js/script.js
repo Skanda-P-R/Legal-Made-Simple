@@ -1,9 +1,13 @@
 document.getElementById('extractButton').addEventListener('click', async () => {
     const sampleCase = document.getElementById('sampleCase').value;
+    const loadingSpinner = document.getElementById('extractLoading');
+
     if (!sampleCase) {
         alert("Please enter a sample case.");
         return;
     }
+
+    loadingSpinner.style.display = 'inline-block';
 
     try {
         const response = await fetch('/extract', {
@@ -120,6 +124,8 @@ document.getElementById('extractButton').addEventListener('click', async () => {
     } catch (error) {
         console.error(error);
         document.getElementById('caseStatements').value = "Error connecting to server.";
+    } finally {
+        loadingSpinner.style.display = 'none'; // Hide spinner
     }
 });
 
@@ -128,11 +134,14 @@ document.getElementById('extractButton').addEventListener('click', async () => {
 document.getElementById('submitPromptButton').addEventListener('click', async () => {
     const sampleCase = document.getElementById('sampleCase').value;
     const userPrompt = document.getElementById('userPrompt').value;
+    const loadingSpinner = document.getElementById('submitLoading');
 
     if (!sampleCase || !userPrompt) {
         alert("Please enter both a sample case and a user prompt.");
         return;
     }
+
+    loadingSpinner.style.display = 'inline-block';
 
     try {
         const response = await fetch('/submit', {
@@ -155,5 +164,11 @@ document.getElementById('submitPromptButton').addEventListener('click', async ()
 
     } catch (error) {
         console.error(error);
+    } finally {
+        loadingSpinner.style.display = 'none'; // Hide spinner
     }
+});
+
+document.getElementById('resetButton').addEventListener('click', () => {
+    location.reload();
 });

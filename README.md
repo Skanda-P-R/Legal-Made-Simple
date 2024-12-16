@@ -37,10 +37,12 @@ Create a virtual environment, or you can directly install the python libraries g
 Run this command to start the flask backend on 127.0.0.1:5000.<br>```python app.py```<br><br>The command promt screen will show something like this:<br><br>![image](https://github.com/user-attachments/assets/876e5457-887e-46b6-b10a-7b07ae50bee4)
 
 ### 5. Open the Webpage
-Open your prefered browser and go to the link where the Flask Backend is running. By default, it will be "http://127.0.0.1:5000/". If you have done correctly, you should see the webpage like this:<br><br>![image](https://github.com/user-attachments/assets/41f70ddd-def6-47e3-91ae-60cec1d88c7b)
+Open your prefered browser and go to the link where the Flask Backend is running. By default, it will be "http://127.0.0.1:5000/". If you have done correctly, you should see the webpage like this:<br><br>![image](https://github.com/user-attachments/assets/dea2b76f-4d17-4061-9535-88b0c8b16573)
+
 <br><br>Now, you can enter anything related to legal in the **Sample Case Textbox** and the **Named Entities** extracted from the statement is shown below, along with the **Relevant Case Statements** which matches with the sample text provided.<br>
 A Llama model is trained on these extracted case statements, and the user can ask any prompt he likes, and the model will generate relevant answers.<br><br><br>
-An example is shown in the below image:<br><br>![image](https://github.com/user-attachments/assets/73fca1ba-36b0-456a-9652-e3ae5f2d3b7a)
+An example is shown in the below image:<br><br>![image](https://github.com/user-attachments/assets/f2461fda-b6f1-4685-a7e1-a83b3e3eaa62)
+
 
 ## Acknowledgments
 * [HPCC Systems](https://hpccsystems.com/) for scalable data processing solutions.
