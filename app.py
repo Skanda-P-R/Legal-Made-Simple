@@ -1,13 +1,19 @@
-from flask import Flask, request, jsonify, send_from_directory, render_template, session
+from flask import Flask, request, jsonify, send_from_directory, render_template
 from legal_ner_script import process_entities
 from send_to_roxie import send_to_api, extract_text_from_response
 from send_to_groq import send_to_groq
-import os
+import mysql.connector
+
+mydb = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="1803",
+    database="legal"
+)
+
+cursor = mydb.cursor()
 
 app = Flask(__name__)
-
-# Secret key for session management
-app.secret_key = os.urandom(24)
 
 ROXIE_API_URL = "http://university-roxie.us-hpccsystems-dev.azure.lnrsg.io:8002/WsEcl/json/query/roxie/roxie_index_search_2"
 GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
@@ -27,12 +33,26 @@ def extract_case_statements():
 
         extracted_string = process_entities(input_text)
 
-        case_statements = ''
-        while not case_statements:
-            roxie_response = send_to_api(extracted_string, ROXIE_API_URL)
-            case_statements = extract_text_from_response(roxie_response)
+        # case_statements = ''
+        # while not case_statements:
+        #     roxie_response = send_to_api(extracted_string, ROXIE_API_URL)
+        #     case_statements = extract_text_from_response(roxie_response)
 
-        session['case_statements'] = case_statements
+        extracted_list = extracted_string.split("/")
+        
+        for i in extracted_list:
+            cursor.execute(f"insert into test_words values ('{i}')")
+
+        cursor.execute(f"insert into relevant_text_id select legal_words.text_id, count(legal_words.words) as words_count from legal_words inner join test_words on legal_words.words = test_words.words group by legal_words.text_id order by words_count DESC limit 10")
+        cursor.execute(f"select cases.text from cases inner join relevant_text_id on relevant_text_id.text_id = cases.text_id")
+        text = cursor.fetchall()
+        count = 1
+        texts = []
+        for i in text:
+            texts.append(f"({count}) {i}\n")
+            count+=1
+        
+        case_statements = " ".join(texts)
 
         return jsonify({
             "extracted": extracted_string,

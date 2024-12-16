@@ -3,3 +3,4 @@ requests
 Flask
 Jinja2
 werkzeug
+mysql-connector-python
