@@ -34,14 +34,14 @@ To install the model, run this command:<br> ```pip install https://huggingface.c
 ### 3. Install the python libraries
 Create a virtual environment, or you can directly install the python libraries globally. Run this to install the dependencies:<br> ``` pip install -r requirements.txt ```
 ### 4. Run the Flask Backend
-Run this command to start the flask backend on 127.0.0.1:5000.<br>```python app.py```<br><br>The command promt screen will show something like this:<br><br>![image](images/cmd.jpg)
+Run this command to start the flask backend on 127.0.0.1:5000.<br>```python app.py```<br><br>The command promt screen will show something like this:<br><br>![image](images/cmd.png)
 
 ### 5. Open the Webpage
-Open your prefered browser and go to the link where the Flask Backend is running. By default, it will be "http://127.0.0.1:5000/". If you have done correctly, you should see the webpage like this:<br><br>![image](images/1.jpg)
+Open your prefered browser and go to the link where the Flask Backend is running. By default, it will be "http://127.0.0.1:5000/". If you have done correctly, you should see the webpage like this:<br><br>![image](images/1.png)
 
 <br><br>Now, you can enter anything related to legal in the **Sample Case Textbox** and the **Named Entities** extracted from the statement is shown below, along with the **Relevant Case Statements** which matches with the sample text provided.<br>
 A Llama model is trained on these extracted case statements, and the user can ask any prompt he likes, and the model will generate relevant answers.<br><br><br>
-An example is shown in the below image:<br><br>![image](images/2.jpg)
+An example is shown in the below image:<br><br>![image](images/2.png)
 
 
 ## Acknowledgments
