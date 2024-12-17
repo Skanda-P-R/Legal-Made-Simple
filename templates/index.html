@@ -12,11 +12,14 @@
         <div class="box">
             <label for="sampleCase">Enter Sample Case</label>
             <input type="text" id="sampleCase" placeholder="Enter Sample Case">
-            <button id="extractButton">Extract Relevant Named Entities</button>
-            <span id="extractLoading" class="loading-spinner" style="display: none;"></span>
+            <button id="extractWordsButton">Extract Relevant Named Entities</button>
+            <span id="extractWordsLoading" class="loading-spinner" style="display: none;"></span>
             <br><br>
             <label for="caseStatements">Extracted Named Entities</label>
             <div id="caseStatementsContainer"></div>
+            <br>
+            <button id="extractButton">Extract Relevant Cases</button>
+            <span id="extractLoading" class="loading-spinner" style="display: none;"></span>
             <br><br>
             <label for="roxieCases">Relevent Case Statements</label>
             <table id="roxieCaseStatementsTable">

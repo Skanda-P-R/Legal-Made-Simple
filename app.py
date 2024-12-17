@@ -20,9 +20,12 @@ GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
 def index():
     return render_template('index.html')
 
-@app.route('/extract', methods=['POST'])
-def extract_case_statements():
+@app.route('/extractwords', methods=['POST'])
+def extract_words():
     try:
+        cursor.execute(f"DELETE FROM test_words")
+        cursor.execute(f"DELETE FROM relevant_text_id")
+        mydb.commit()
         data = request.get_json()
         input_text = data.get('sampleCase', '')
 
@@ -31,13 +34,27 @@ def extract_case_statements():
 
         extracted_string = process_entities(input_text)
 
-        cursor.execute(f"DELETE FROM test_words")
-        cursor.execute(f"DELETE FROM relevant_text_id")
-
         extracted_list = extracted_string.split("/")
         
         for i in extracted_list:
             cursor.execute(f"INSERT INTO test_words VALUES ('{i}')")
+        
+        # mydb.commit()
+
+        return jsonify({
+            "extracted": extracted_string
+        })
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+@app.route('/extract', methods=['POST'])
+def extract_case_statements():
+    try:
+        data = request.get_json()
+        input_text = data.get('sampleCase', '')
+
+        if not input_text:
+            return jsonify({"error": "Sample case input is required"}), 400
 
         cursor.execute(f"INSERT INTO relevant_text_id SELECT legal_words.text_id, COUNT(legal_words.words) AS words_count FROM legal_words INNER JOIN test_words ON legal_words.words = test_words.words GROUP BY legal_words.text_id ORDER BY words_count DESC LIMIT 10")
         cursor.execute(f"SELECT cases.text FROM cases INNER JOIN relevant_text_id ON relevant_text_id.text_id = cases.text_id")
@@ -51,7 +68,6 @@ def extract_case_statements():
         case_statements = " ".join(texts)
 
         return jsonify({
-            "extracted": extracted_string,
             "caseStatements": case_statements
         })
     except Exception as e:
@@ -67,17 +83,6 @@ def submit_prompt():
         if not input_text or not user_prompt:
             return jsonify({"error": "Sample case and user prompt inputs are required"}), 400
 
-        ner_output = process_entities(input_text)
-
-        cursor.execute(f"DELETE FROM test_words")
-        cursor.execute(f"DELETE FROM relevant_text_id")
-
-        extracted_list = ner_output.split("/")
-        
-        for i in extracted_list:
-            cursor.execute(f"INSERT INTO test_words VALUES ('{i}')")
-
-        cursor.execute(f"INSERT INTO relevant_text_id SELECT legal_words.text_id, COUNT(legal_words.words) AS words_count FROM legal_words INNER JOIN test_words ON legal_words.words = test_words.words GROUP BY legal_words.text_id ORDER BY words_count DESC LIMIT 10")
         cursor.execute(f"SELECT cases.text FROM cases INNER JOIN relevant_text_id ON relevant_text_id.text_id = cases.text_id")
         text = cursor.fetchall()
         count = 1

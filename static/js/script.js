@@ -23,24 +23,6 @@ document.getElementById('extractButton').addEventListener('click', async () => {
             return;
         }
 
-        const caseStatementsContainer = document.getElementById('caseStatementsContainer');
-        caseStatementsContainer.innerHTML = "";
-
-        if (data.extracted) {
-            const entities = data.extracted.split('/').filter(word => word.trim() !== "");
-            entities.forEach(entity => {
-                const tag = document.createElement('div');
-                tag.className = 'tag';
-                tag.textContent = entity.trim();
-                caseStatementsContainer.appendChild(tag);
-            });
-        } else {
-            const noDataTag = document.createElement('div');
-            noDataTag.className = 'tag';
-            noDataTag.textContent = "No named entities found.";
-            caseStatementsContainer.appendChild(noDataTag);
-        }
-
         const roxieCaseStatementsTable = document.getElementById('roxieCaseStatementsTable');
         roxieCaseStatementsTable.innerHTML = '';
 
@@ -126,6 +108,56 @@ document.getElementById('extractButton').addEventListener('click', async () => {
         document.getElementById('caseStatements').value = "Error connecting to server.";
     } finally {
         loadingSpinner.style.display = 'none'; // Hide spinner
+    }
+});
+
+document.getElementById('extractWordsButton').addEventListener('click', async () => {
+    const sampleCase = document.getElementById('sampleCase').value;
+    const loadingSpinner = document.getElementById('extractWordsLoading');
+
+    if (!sampleCase) {
+        alert("Please enter a sample case.");
+        return;
+    }
+
+    loadingSpinner.style.display = 'inline-block';
+
+    try {
+        const response = await fetch('/extractwords', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ sampleCase })
+        });
+        
+        const data = await response.json();
+
+        if (data.error) {
+            alert("Error: " + data.error);
+            return;
+        }
+
+        const caseStatementsContainer = document.getElementById('caseStatementsContainer');
+        caseStatementsContainer.innerHTML = "";
+
+        if (data.extracted) {
+            const entities = data.extracted.split('/').filter(word => word.trim() !== "");
+            entities.forEach(entity => {
+                const tag = document.createElement('div');
+                tag.className = 'tag';
+                tag.textContent = entity.trim();
+                caseStatementsContainer.appendChild(tag);
+            });
+        } else {
+            const noDataTag = document.createElement('div');
+            noDataTag.className = 'tag';
+            noDataTag.textContent = "No named entities found.";
+            caseStatementsContainer.appendChild(noDataTag);
+        }
+    } catch (error) {
+        console.error(error);
+        document.getElementById('caseStatements').value = "Error connecting to server.";
+    } finally {
+        loadingSpinner.style.display = 'none'; 
     }
 });
 
