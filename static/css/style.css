@@ -1,5 +1,9 @@
 body {
     background-color: #f0f8ff; /* Light blue background */
+    background-image: url('bg.png');
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
