@@ -1,7 +1,7 @@
 # How the Web Application Works
 
 ## Overview
-This document describes the working of the application, outlining its components, workflows, and processes. The application uses Flask as the backend framework and integrates custom Named Entity Recognition (NER), Roxie API, and Groq's LLM API for processing legal documents and user inputs.
+This document describes the working of the application, outlining its components, workflows, and processes. The application uses Flask as the backend framework and integrates custom Named Entity Recognition (NER), MySQL, and Groq's LLM API for processing legal documents and user inputs.
 
 ## Application Workflow
 The application consists of two main workflows:
@@ -25,12 +25,9 @@ The application consists of two main workflows:
    - Entities of type `PROVISION` and `STATUTE` are combined into a single label, `PROVISION_STATUTE`.
    - The extracted entities are returned as a string.
 
-### Step 3: Query Roxie API / SQL Server
-- The extracted entities are sent to the **HPCC Systems' Roxie API** using `send_to_roxie.py`. In the later version, we have shifted to a SQL Server, which does the same functionality.
-- **Process Details**:
-   - The API query is based on the NER-extracted entity information.
-   - The Roxie API responds with relevant legal case statements, by doing efficient searching and ranking of the case statements from the data corpus. The **Searching** process is discussed in the **Searching Techinques used in HPCC** folder.
-   - The statements are formatted and include line numbers for reference.
+### Step 3: Extract Relevant cases using SQL Server
+- The extracted entities are saved in a table, and an INNER JOIN function of MySQL is performed twice, once to get the relevant case number based on the extracted entities, and second time to map the case statement with the case number fetched. 
+- The statements are then formatted and include line numbers for reference.
 
 ### Step 4: Frontend Update
 - The server sends the extracted entities and the Roxie case statements back to the frontend.
@@ -68,8 +65,6 @@ The application consists of two main workflows:
 2. **NER Script** (`legal_ner_script.py`):
    - Performs named entity extraction using the `en_legal_ner_trf` spaCy model.
    - Combines and formats specific entity types.
-3. **Roxie API Integration** (`send_to_roxie.py`):
-   - Queries Roxie API to fetch related case statements.
 4. **Groq LLM API Integration** (`send_to_groq.py`):
    - Sends user prompts and case statements to Groq's LLM API for response generation.
 
