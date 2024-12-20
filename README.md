@@ -1,6 +1,6 @@
 # Legal Made Simple
 <div style="text-align: justify;">
-The legal system is based on precedents, with earlier court rulings serving as models for current cases. Finding analogous cases and spotting hidden relationships becomes essential in this situation for deciphering legal nuances and gathering pertinent data. But as legal professionals sift through the massive collection of cases, they frequently find intricate patterns and relationships that aren't always obvious. The ideal choice for this application is to use HPCC systems because they can manage the large-scale data processing and storage needs of creating and querying a legal ontology on a legal data corpus, allowing for effective retrieval of context-aware information.
+The legal system relies heavily on precedents, where past court decisions serve as benchmarks for resolving current cases. In this context, identifying similar cases and uncovering subtle relationships is crucial for understanding legal complexities and extracting relevant information. However, legal professionals often face challenges in navigating vast repositories of cases, as intricate patterns and connections are not always immediately evident. This application leverages Named Entity Recognition (NER) to extract key legal entities and employs SQL to efficiently retrieve relevant cases from extensive legal databases.
 </div>
 
 ## Steps to Reproduce the Project
