@@ -16,6 +16,25 @@ GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
 def index():
     return render_template('index.html')
 
+@app.route('/extractwords', methods=['POST'])
+def extract_words():
+    try:
+        data = request.get_json()
+        input_text = data.get('sampleCase', '')
+
+        if not input_text:
+            return jsonify({"error": "Sample case input is required"}), 400
+
+        extracted_string = process_entities(input_text)
+
+        extracted_list = extracted_string.split("/")
+
+        return jsonify({
+            "extracted": extracted_string
+        })
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 @app.route('/extract', methods=['POST'])
 def extract_case_statements():
     try:
